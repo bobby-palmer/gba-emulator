@@ -1,2 +1,2 @@
-# emulator
-My attempt at a Gameboy emulator written in rust!
+# NES Emulator
+My attempt at an NES emulator written in rust! (I'll rename the repo later)
