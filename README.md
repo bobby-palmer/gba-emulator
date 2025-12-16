@@ -1,2 +1,2 @@
 # emulator
-A Basic NES emulator written in CPP
+My attempt at a Gameboy emulator written in rust!
