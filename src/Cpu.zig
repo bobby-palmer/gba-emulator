@@ -3,14 +3,14 @@
 const Bus = @import("Bus.zig");
 
 const Flags = packed struct {
-    Carry: u1 = 0,
-    Zero: u1 = 0,
-    InteruptDisable: u1 = 1,
-    Decimal: u1 = 0,
-    BFlag: u1 = 0,
+    carry: u1 = 0,
+    zero: u1 = 0,
+    interupt_disable: u1 = 1,
+    decimal: u1 = 0,
+    b_flag: u1 = 0,
     _: u1 = 0,
-    Overflow: u1 = 0,
-    Negative: u1 = 0,
+    overflow: u1 = 0,
+    negative: u1 = 0,
 };
 
 const AddressingMode = enum {
@@ -247,6 +247,7 @@ fn executeInstruction() void {
         0x9A => TXS(),
         0x98 => TYA(),
 
+        // Unofficial opcodes will crash
         else => unreachable
     }
 }
@@ -255,14 +256,17 @@ fn executeInstruction() void {
 
 fn ADC(addr_mode: AddressingMode) void {
     _ = addr_mode;
+    unreachable;
 }
 
 fn AND(addr_mode: AddressingMode) void {
     _ = addr_mode;
+    unreachable;
 }
 
 fn ASL(addr_mode: AddressingMode) void {
     _ = addr_mode;
+    unreachable;
 }
 
 fn BCC() void { }
@@ -379,16 +383,16 @@ fn SBC(addr_mode: AddressingMode) void {
 }
 
 fn SEC() void { 
-    p.Carry = 1;
+    p.carry = 1;
 }
 
 fn SED() void { 
-    p.Decimal = 1;
+    p.decimal = 1;
 }
 
 fn SEI() void { 
     // TODO should be delayed by one instruction
-    p.InteruptDisable = 1;
+    p.interupt_disable = 1;
 }
 
 fn STA(addr_mode: AddressingMode) void {
@@ -405,26 +409,26 @@ fn STY(addr_mode: AddressingMode) void {
 
 fn TAX() void { 
     x = a;
-    p.Zero = x == 0;
-    p.Negative = isNegative(x);
+    p.zero = x == 0;
+    p.negative = isNegative(x);
 }
 
 fn TAY() void { 
     y = a;
-    p.Zero = y == 0;
-    p.Negative = isNegative(y);
+    p.zero = y == 0;
+    p.negative = isNegative(y);
 }
 
 fn TSX() void { 
     x = s;
-    p.Zero = x == 0;
-    p.Negative = isNegative(x);
+    p.zero = x == 0;
+    p.negative = isNegative(x);
 }
 
 fn TXA() void { 
     a = x;
-    p.Zero = a == 0;
-    p.Negative = isNegative(a);
+    p.zero = a == 0;
+    p.negative = isNegative(a);
 }
 
 fn TXS() void {
@@ -433,6 +437,6 @@ fn TXS() void {
 
 fn TYA() void { 
     a = y;
-    p.Zero = a == 0;
-    p.Negative = isNegative(a);
+    p.zero = a == 0;
+    p.negative = isNegative(a);
 }
